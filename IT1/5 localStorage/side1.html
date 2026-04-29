@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Side 1</title>
+  <style>
+    button {
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Side 1</h1>
+  <h2>Skriv noe: <input id="tekstID"></h2>
+  <div id="visLagreID">
+    <button id="lagreID">Er det ok om vi lagrer denne informasjonen?</button>
+  </div>
+  <a href="side2.html"><h1>Side 2</h1></a>
+  <button id="fjernID">Fjern samtykke</button>
+  <script>
+    let tekstEL = document.getElementById("tekstID")
+    let lagreEL = document.getElementById("lagreID");
+    let visLagreEL = document.getElementById("visLagreID");
+    let fjernEL = document.getElementById("fjernID");
+
+    
+    if (localStorage.godkjentLagringInfo) {
+      visLagreEL.style.display = "none";
+    }
+    
+
+    lagreEL.addEventListener("click",lagreFunk);
+    tekstEL.addEventListener("keydown",lagreFunk2);
+    fjernEL.addEventListener("click",fjernFunk);
+
+    function lagreFunk() {
+      localStorage.godkjentLagringInfo = tekstEL.value;
+      lagreEL.innerHTML = "OK!"
+    }
+
+    function lagreFunk2(event) {
+      if (event.key === "Enter") {
+        if (localStorage.godkjentLagringInfo) {
+          localStorage.godkjentLagringInfo = tekstEL.value;
+        }
+      }
+    }
+
+    function fjernFunk() {
+      localStorage.removeItem("godkjentLagringInfo");
+      window.open("side1.html");
+    }
+
+
+
+    
+    let liste = [
+      ["a",1,2],
+      ["b",3,4]
+    ]
+
+
+    localStorage.EksempelLagringAvListe = JSON.stringify(liste);
+    
+    //localStorage.setItem("EksempelLagringAvListe",JSON.stringify(liste));
+    
+  </script>
+</body>
+</html>
